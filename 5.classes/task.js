@@ -86,34 +86,40 @@ class Library {
 	}
 	
 	findBookBy(type, value) {
-		for (let book of this.books) {
-			if (book.hasOwnProperty(type) && book[type] === value) {
-				return book;
-			} else if (book.hasOwnProperty(type) && book[type] !== value) {
-				continue;
-			} else {
-				return null;
-			}
-			
-			return null;
-		}
+//		for (let book of this.books) {
+//			if (book.hasOwnProperty(type) && book[type] === value) {
+//				return book;
+//			} else if (book.hasOwnProperty(type) && book[type] !== value) {
+//				continue;
+//			} else {
+//				return null;
+//			}
+//			
+//			return null;
+//		}
+		
+		
+		let findingBook = this.books.find(function(book) {
+			return book.hasOwnProperty(type) && book[type] === value;
+		})
+		
+		return findingBook || null;
 	}
 	
 	giveBookByName(bookName) {
 		let indexElement;
 		
 		for (let [index, value] of this.books.entries()) {
-			if (value.name === bookName)	{
+			if (value.name === bookName) {
 				indexElement = index;
-			} else {
-				indexElement = null;
 			}
 		}
 		
 		if (indexElement !== null) {
-			return this.books.splice(indexElement, 1);
-		} else {
-			return null;
-		}
+			return this.books.splice(indexElement, 1)[0] || null;
+		} 
+//		else {
+//			return null;
+//		}
 	}
 }
