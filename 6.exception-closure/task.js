@@ -13,12 +13,8 @@ function validateCount(value) {
 	try {
 		return parseCount(value);
 	} catch(error) {
-//		console.error(error);
 		return error;
 	} 
-//	finally {
-//		return parseCount(value);
-//	}
 }
 
 
@@ -39,19 +35,11 @@ class Triangle {
 	}
 	
 	get perimeter() {
-//		try {
-			return this.sideA + this.sideB + this.sideC;
-//		} catch {
-//			return "Ошибка! Треугольник не существует";
-//		}
+		return this.sideA + this.sideB + this.sideC;
 	}
 	
 	get area() {
-//		try {
-			return Number(Math.sqrt(this.perimeter * (this.perimeter / 2 - this.sideA) * (this.perimeter / 2 - this.sideB) * (this.perimeter / 2 - this.sideC) / 2).toFixed(3));
-//		} catch {
-//			return "Ошибка! Треугольник не существует";
-//		}
+		return Number(Math.sqrt(this.perimeter * (this.perimeter / 2 - this.sideA) * (this.perimeter / 2 - this.sideB) * (this.perimeter / 2 - this.sideC) / 2).toFixed(3));
 	}
 }
 
@@ -59,9 +47,15 @@ class Triangle {
 function getTriangle(sideA, sideB, sideC) {
 	try {
 		return new Triangle(sideA, sideB, sideC);
-	} catch(error) {
-		error.area = "Ошибка! Треугольник не существует";
-		error.perimeter = "Ошибка! Треугольник не существует";
-		return error;
+	} catch {
+		return {
+			get perimeter() {
+				return "Ошибка! Треугольник не существует";
+			},
+			
+			get area() {
+				return "Ошибка! Треугольник не существует";
+			}
+		};
 	}
 }
