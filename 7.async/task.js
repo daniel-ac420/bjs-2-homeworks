@@ -14,7 +14,7 @@ class AlarmClock {
 		
 		if (
 			this.alarmCollection.find(function(element) {
-				element === time;
+				element.time === time;
 			})
 		) {
 			console.warn("Уже присутствует звонок на это же время");
@@ -33,7 +33,7 @@ class AlarmClock {
 	/* --- Удаление звонка по определённому времени --- */
 	removeClock(time) {
 		let resultArray = this.alarmCollection.filter(function(element) {
-			if (element !== time) {
+			if (element.time !== time) {
 				return true;
 			}
 		})
@@ -84,6 +84,14 @@ class AlarmClock {
 	stop() {
 		clearInterval(this.intervalId);
 		this.intervalId = null;
+	}
+	
+	
+	/* --- Сброс возможности запуска всех звонков --- */
+	resetAllCalls() {
+		this.alarmCollection.forEach(function(element) {
+			element.canCall = true;
+		})
 	}
 	
 	
