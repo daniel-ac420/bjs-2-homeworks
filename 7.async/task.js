@@ -38,7 +38,8 @@ class AlarmClock {
 			}
 		})
 		
-		return resultArray;
+//		return resultArray;
+		this.alarmCollection = resultArray;
 	}
 	
 	
@@ -66,17 +67,17 @@ class AlarmClock {
 			return;
 		}
 		
-		this.intervalId = setInterval(timer, 1000);
-		
-		function timer() {
-			this.alarmCollection.forEach(function(element) {
-				if (element.time === getCurrentFormattedTime() && element.canCall) {
-					element.canCall = false;
-					//return callback;
-					element.callback();
+		this.intervalId = setInterval(() =>	{
+			this.alarmCollection.forEach(
+				(element) => {
+					if (element.time === this.getCurrentFormattedTime() && element.canCall) {
+						element.canCall = false;
+						//return callback;
+						element.callback();
+					}
 				}
-			})
-		}
+			)
+		}, 1000);
 	}
 	
 	
@@ -97,7 +98,7 @@ class AlarmClock {
 	
 	/* --- Удаление всех звонков --- */
 	clearAlarms() {
-		stop();
+		this.stop();
 		this.alarmCollection = [];		
 	}
 }
